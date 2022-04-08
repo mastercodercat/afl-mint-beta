@@ -1,11 +1,13 @@
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { Grid } from '@mui/material'
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 
 import FormInput from '../../components/Fields/FormInput'
 import FormCheck from '../../components/Fields/FormCheck'
 import FormSelect from '../../components/Fields/FormSelect'
-import RegisterButton from '../../components/Button/GradientButton'
+import RegisterButton from '../../components/Button/CustomButton'
 
 import useCountrySelect from 'hooks/useCountrySelect'
 
@@ -146,9 +148,10 @@ const Signup = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <RegisterButton
+                variant="contained"
                 name="register"
                 label="Register"
-                className="text-base font-bold tracking-widest py-[11px] rounded-sm"
+                fontColor="#fff"
               />
             </Grid>
           </Grid>
