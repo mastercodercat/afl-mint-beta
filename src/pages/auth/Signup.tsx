@@ -7,7 +7,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import FormInput from '../../components/Fields/FormInput'
 import FormCheck from '../../components/Fields/FormCheck'
 import FormSelect from '../../components/Fields/FormSelect'
-import RegisterButton from '../../components/Button/CustomButton'
+import CustomButton from '../../components/Button/CustomButton'
 
 import useCountrySelect from 'hooks/useCountrySelect'
 
@@ -41,7 +41,7 @@ const Signup = () => {
   })
 
   return (
-    <Grid container justifyContent="center" className="register-back">
+    <Grid container justifyContent="center" className="signup-back">
       <Grid
         item
         container
@@ -53,9 +53,10 @@ const Signup = () => {
           <img src="public/assets/logo/Logo.svg"></img>
         </Grid>
         <Grid item className="text-white font-bold text-[32px]">
-          <div className="font-podium49">Register</div>
+          <div className="font-podium49">Sign Up</div>
         </Grid>
       </Grid>
+
       <Grid item>
         <form onSubmit={formik.handleSubmit} className="flex justify-center">
           <Grid
@@ -78,6 +79,27 @@ const Signup = () => {
             >
               <div>Already have an account</div>
             </Grid>
+            <Grid item className="text-white" xs={12} sm={12} md={12} lg={12}>
+              <CustomButton
+                model="secondary"
+                variant="outlined"
+                name="signup"
+                label="SIGN UP WITH OKTA"
+                size="medium"
+              />
+            </Grid>
+            <Grid
+              item
+              className="text-white"
+              sx={{ marginTop: '12px' }}
+              xs={12}
+              sm={12}
+              md={12}
+              lg={12}
+            >
+              <div>Or sign up with email</div>
+            </Grid>
+
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <FormInput
                 name="firstName"
@@ -147,11 +169,12 @@ const Signup = () => {
               />
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12}>
-              <RegisterButton
+              <CustomButton
+                type="submit"
+                model="primary"
                 variant="contained"
-                name="register"
-                label="Register"
-                fontColor="#fff"
+                name="signup"
+                label="SIGN UP"
               />
             </Grid>
           </Grid>

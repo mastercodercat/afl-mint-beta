@@ -71,7 +71,7 @@ const theme = createTheme({
 export type CustomButtonProps = ButtonProps<
   'button',
   {
-    type: 'primary' | 'secondary' | 'text'
+    model: 'primary' | 'secondary' | 'text'
     label: string
     className?: string
     fontColor?: string
@@ -81,7 +81,7 @@ export type CustomButtonProps = ButtonProps<
 >
 
 const CustomButton = ({
-  type,
+  model,
   label,
   className,
   fontColor,
@@ -95,7 +95,8 @@ const CustomButton = ({
     <ThemeProvider theme={theme}>
       <FormGroup>
         <Button
-          className={`${classes[type]} ${classes[size || 'large']}`}
+          type="submit"
+          className={`${classes[model]} ${classes[size || 'large']}`}
           onClick={() => {}}
           {...rest}
         >
