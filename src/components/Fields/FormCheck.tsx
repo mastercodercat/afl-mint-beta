@@ -64,7 +64,9 @@ const FormCheck = ({
         error={isHint && formik.touched[name] && !!formik.errors[name]}
       >
         {isHint && formik.touched[name] && formik.errors[name] && (
-          <FormHelperText>{formik.errors[name]}</FormHelperText>
+          <FormHelperText sx={{ marginLeft: '0px' }}>
+            {formik.errors[name]}
+          </FormHelperText>
         )}
         <FormGroup className={className}>
           <FormControlLabel
