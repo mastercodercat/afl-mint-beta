@@ -1,6 +1,8 @@
 import { TextField, FormGroup } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import InputAdornment from '@mui/material/InputAdornment'
+import ErrorIcon from '@mui/icons-material/Error'
 import { FormikValues } from 'formik'
 import { ChangeEvent } from 'react'
 
@@ -12,6 +14,9 @@ const useStyles = makeStyles({
   },
   label: {
     color: '#A6A6A6'
+  },
+  helper: {
+    marginLeft: 0
   }
 })
 
@@ -56,11 +61,20 @@ const FormInput = ({
           label={label}
           placeholder={placeholder}
           variant="filled"
-          InputProps={{
-            className: classes.root
-          }}
           error={formik.touched[name] && !!formik.errors[name]}
           helperText={isHint && formik.touched[name] && formik.errors[name]}
+          InputProps={
+            (formik.touched[name] &&
+              formik.errors[name] && {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <ErrorIcon sx={{ color: '#E41E31' }}></ErrorIcon>
+                  </InputAdornment>
+                )
+              },
+            { className: classes.root })
+          }
+          FormHelperTextProps={{ className: classes.helper }}
         />
       </FormGroup>
     </ThemeProvider>

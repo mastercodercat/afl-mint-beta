@@ -83,7 +83,9 @@ const FormSelect = ({
             ))}
           </Select>
           {isHint && formik.touched[name] && formik.errors[name] && (
-            <FormHelperText>{formik.errors[name]}</FormHelperText>
+            <FormHelperText sx={{ marginLeft: 0 }}>
+              {formik.errors[name]}
+            </FormHelperText>
           )}
         </FormControl>
       </FormGroup>
