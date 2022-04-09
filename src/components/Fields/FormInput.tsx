@@ -8,7 +8,10 @@ import { ChangeEvent } from 'react'
 
 const useStyles = makeStyles({
   root: {
-    '& input': {
+    '&': {
+      backgroundColor: '#1A1A1A'
+    },
+    '&:hover': {
       backgroundColor: '#1A1A1A'
     }
   },
@@ -64,15 +67,16 @@ const FormInput = ({
           error={formik.touched[name] && !!formik.errors[name]}
           helperText={isHint && formik.touched[name] && formik.errors[name]}
           InputProps={
-            (formik.touched[name] &&
-              formik.errors[name] && {
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <ErrorIcon sx={{ color: '#E41E31' }}></ErrorIcon>
-                  </InputAdornment>
-                )
-              },
-            { className: classes.root })
+            formik.touched[name] && formik.errors[name]
+              ? {
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <ErrorIcon sx={{ color: '#E41E31' }}></ErrorIcon>
+                    </InputAdornment>
+                  ),
+                  className: classes.root
+                }
+              : { className: classes.root }
           }
           FormHelperTextProps={{ className: classes.helper }}
         />
