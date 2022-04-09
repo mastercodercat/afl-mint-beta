@@ -1,11 +1,10 @@
-import { Checkbox, FormControl, FormGroup, FormHelperText } from '@mui/material'
+import { FormControl, FormGroup, FormHelperText } from '@mui/material'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import { makeStyles } from '@mui/styles'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { FormikValues } from 'formik'
-import { ChangeEvent } from 'react'
 
 const useStyles = makeStyles({
   select: {

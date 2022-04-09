@@ -1,8 +1,8 @@
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { Grid } from '@mui/material'
-import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
+import lookup from 'country-code-lookup'
+import { SelectChangeEvent } from '@mui/material/Select'
 
 import FormInput from '../../components/Fields/FormInput'
 import FormCheck from '../../components/Fields/FormCheck'
@@ -19,7 +19,16 @@ const validationSchema = Yup.object().shape({
   acceptTerms: Yup.bool().oneOf([true], 'Accept the privacy terms to continue')
 })
 
-const initialValues = {
+interface registerForm {
+  firstName: string
+  lastName: string
+  email: string
+  mobile: string | undefined
+  country: string
+  acceptTerms: boolean
+}
+
+const initialValues: registerForm = {
   firstName: '',
   lastName: '',
   email: '',
@@ -35,10 +44,19 @@ const Signup = () => {
     initialValues,
     validationSchema,
     onSubmit: (values, actions) => {
-      console.log(values)
       actions.resetForm({ values: initialValues })
     }
   })
+
+  const handleCountryChange = (evt: SelectChangeEvent) => {
+    formik.setFieldValue('country', evt.target.value)
+    if (typeof lookup.byInternet(evt.target.value)?.isoNo === 'string') {
+      formik.setFieldValue(
+        'mobile',
+        `+ ${lookup.byInternet(evt.target.value)?.isoNo} | `
+      )
+    }
+  }
 
   return (
     <Grid container justifyContent="center" className="signup-back">
@@ -141,7 +159,7 @@ const Signup = () => {
                 label="Country"
                 placeholder="Select your country"
                 formik={formik}
-                handleChange={formik.handleChange}
+                handleChange={handleCountryChange}
                 isHint={true}
               />
             </Grid>
