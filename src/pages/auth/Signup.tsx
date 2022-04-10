@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { Grid } from '@mui/material'
@@ -8,6 +9,7 @@ import FormInput from '../../components/Fields/FormInput'
 import FormCheck from '../../components/Fields/FormCheck'
 import FormSelect from '../../components/Fields/FormSelect'
 import CustomButton from '../../components/Button/CustomButton'
+import FormMobile from '../../components/Fields/FormMobile'
 
 import useCountrySelect from 'hooks/useCountrySelect'
 
@@ -16,10 +18,16 @@ const validationSchema = Yup.object().shape({
   lastName: Yup.string().required('Enter your Lastname'),
   email: Yup.string().required('Enter your Email').email('Enter a valid Email'),
   country: Yup.mixed().required('Select a Country'),
+  mobile: Yup.string()
+    .matches(
+      /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
+      'Enter x numbers'
+    )
+    .notRequired(),
   acceptTerms: Yup.bool().oneOf([true], 'Accept the privacy terms to continue')
 })
 
-interface registerForm {
+interface RegisterForm {
   firstName: string
   lastName: string
   email: string
@@ -28,7 +36,7 @@ interface registerForm {
   acceptTerms: boolean
 }
 
-const initialValues: registerForm = {
+const initialValues: RegisterForm = {
   firstName: '',
   lastName: '',
   email: '',
@@ -38,23 +46,23 @@ const initialValues: registerForm = {
 }
 
 const Signup = () => {
+  const [mobilePrefix, setMobilePrefix] = useState('')
   const { countries } = useCountrySelect()
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values, actions) => {
+      setMobilePrefix('')
       actions.resetForm({ values: initialValues })
+      formik.values.acceptTerms = false
     }
   })
 
   const handleCountryChange = (evt: SelectChangeEvent) => {
     formik.setFieldValue('country', evt.target.value)
     if (typeof lookup.byInternet(evt.target.value)?.isoNo === 'string') {
-      formik.setFieldValue(
-        'mobile',
-        `+ ${lookup.byInternet(evt.target.value)?.isoNo} | `
-      )
+      setMobilePrefix(`+ ${lookup.byInternet(evt.target.value)?.isoNo} | `)
     }
   }
 
@@ -164,23 +172,25 @@ const Signup = () => {
               />
             </Grid>
             <Grid item xs={12} sm={12} md={12} lg={12}>
-              <FormInput
+              <FormMobile
                 name="mobile"
                 formik={formik}
                 handleChange={formik.handleChange}
-                label="Mobile(optional)"
                 className="font-inter font-normal text-base"
+                label="Mobile"
                 placeholder="Mobile(optional)"
+                prefix={mobilePrefix}
+                isHint={true}
               />
             </Grid>
+
             <Grid item xs={12} sm={12} md={12} lg={12}>
               <FormCheck
                 name="acceptTerms"
                 label="I would like to receive communications
                   from the AFL and AFL partners about products and
                   initiatives of the AFL and AFL partners, including communications about AFL Mint pre-sales, new drops and
-                  special offers. I agree to the terms and
-                  conditions of the AFL Privacy Policy"
+                  special offers."
                 formik={formik}
                 handleChange={formik.handleChange}
                 isHint={true}
