@@ -69,22 +69,15 @@ const FormInput = ({
           error={formik.touched[name] && !!formik.errors[name]}
           helperText={isHint && formik.touched[name] && formik.errors[name]}
           InputProps={
-            prefix
-              ? {
-                  startAdornment: (
-                    <InputAdornment position="start">+ prefix |</InputAdornment>
-                  )
-                }
-              : formik.touched[name] && formik.errors[name]
-              ? {
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <ErrorIcon sx={{ color: '#E41E31' }}></ErrorIcon>
-                    </InputAdornment>
-                  ),
-                  className: classes.root
-                }
-              : { className: classes.root }
+            (formik.touched[name] &&
+              formik.errors[name] && {
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <ErrorIcon sx={{ color: '#E41E31' }}></ErrorIcon>
+                  </InputAdornment>
+                )
+              },
+            { className: classes.root })
           }
           FormHelperTextProps={{ className: classes.helper }}
         />
