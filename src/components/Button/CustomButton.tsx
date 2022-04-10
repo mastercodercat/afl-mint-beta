@@ -95,7 +95,6 @@ const CustomButton = ({
     <ThemeProvider theme={theme}>
       <FormGroup>
         <Button
-          type="submit"
           className={`${classes[model]} ${classes[size || 'large']}`}
           onClick={() => {}}
           {...rest}
