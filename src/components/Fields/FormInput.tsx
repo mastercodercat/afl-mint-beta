@@ -35,6 +35,7 @@ interface FormInputProps {
   className?: string
   label?: string
   placeholder?: string
+  prefix?: string
   handleChange?: (evt: ChangeEvent<HTMLInputElement>) => void
   formik: FormikValues
   isHint?: boolean
@@ -46,6 +47,7 @@ const FormInput = ({
   className,
   label,
   placeholder,
+  prefix,
   handleChange,
   formik,
   isHint
@@ -67,7 +69,13 @@ const FormInput = ({
           error={formik.touched[name] && !!formik.errors[name]}
           helperText={isHint && formik.touched[name] && formik.errors[name]}
           InputProps={
-            formik.touched[name] && formik.errors[name]
+            prefix
+              ? {
+                  startAdornment: (
+                    <InputAdornment position="start">+ prefix |</InputAdornment>
+                  )
+                }
+              : formik.touched[name] && formik.errors[name]
               ? {
                   endAdornment: (
                     <InputAdornment position="end">
