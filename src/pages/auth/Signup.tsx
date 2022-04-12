@@ -25,7 +25,7 @@ const validationSchema = Yup.object().shape({
       /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
       'Enter x numbers'
     )
-    .max(9, 'number less than 9')
+    .max(10, 'number less than 10')
     .notRequired(),
   acceptTerms: Yup.bool().oneOf([true], 'Accept the privacy terms to continue')
 })
@@ -72,7 +72,7 @@ const Signup = () => {
     )
   }
 
-  const handleSubmit = (event: SubmitEvent) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     formik.setSubmitting(true)
 
     formik
@@ -104,7 +104,7 @@ const Signup = () => {
         <Grid item>
           <img src="public/assets/logo/Logo.svg"></img>
         </Grid>
-        <Grid item className="text-white font-bold text-[32px]">
+        <Grid item className="text-[32px] font-bold text-white">
           <div className="font-podium49">Sign Up</div>
         </Grid>
       </Grid>
@@ -154,7 +154,7 @@ const Signup = () => {
           >
             <Grid
               item
-              className="text-white font-normal text-base text-center"
+              className="text-base font-normal text-center text-white"
               xs={12}
               sm={12}
               md={12}
@@ -189,7 +189,7 @@ const Signup = () => {
                 name="first_name"
                 formik={formik}
                 handleChange={formik.handleChange}
-                className="font-inter font-normal text-base"
+                className="font-inter text-base font-normal"
                 label="First name"
                 placeholder="First name"
                 isHint={true}
@@ -201,7 +201,7 @@ const Signup = () => {
                 name="last_name"
                 formik={formik}
                 handleChange={formik.handleChange}
-                className="font-inter font-normal text-base"
+                className="font-inter text-base font-normal"
                 label="Last name"
                 placeholder="Last name"
                 isHint={true}
@@ -214,7 +214,7 @@ const Signup = () => {
                 name="email"
                 formik={formik}
                 handleChange={formik.handleChange}
-                className="font-inter font-normal text-base"
+                className="font-inter text-base font-normal"
                 label="Email"
                 placeholder="Email"
                 isHint={true}
@@ -237,7 +237,7 @@ const Signup = () => {
                 name="mobile"
                 formik={formik}
                 handleChange={formik.handleChange}
-                className="font-inter font-normal text-base"
+                className="font-inter text-base font-normal"
                 label="Mobile"
                 placeholder="Mobile(optional)"
                 prefix={mobilePrefix}
